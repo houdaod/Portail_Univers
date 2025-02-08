@@ -1,0 +1,14 @@
+/* Tailwind CSS v4 */
+@import "tailwindcss/preflight"; /* Remplace @tailwind base */
+@import "tailwindcss/utilities"; /* Remplace @tailwind utilities */
+
+/* Importez Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Importez les icônes Bootstrap */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Styles personnalisés (optionnel) */
+body {
+    font-family: 'Figtree', sans-serif;
+}
