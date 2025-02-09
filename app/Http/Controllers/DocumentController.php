@@ -4,25 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use App\Models\Program;
+use App\Models\University;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    //
-    public function index(Program $program)
+
+
+    public function index($programId = null)
     {
-        $documents = $program->documents()->get();
+        // Define the program variable if needed
+        if ($programId) {
+            $program = Program::find($programId);  // Ensure you have the Program model available
+            $documents = Document::where('program_id', $programId)->get();
+        } else {
+            $program = null;  // If no program is selected
+            $documents = Document::all();
+        }
+        
         return view('documents.index', compact('documents', 'program'));
     }
+    
+
+
     public function download(Document $document)
     {
         return response()->download(storage_path('app/' . $document->file_path));
     }
 
-    public function create(Program $program)
+    public function create($programId = null)
     {
-        return view('documents.create', compact('program'));
+        if ($programId) {
+            $program = Program::findOrFail($programId);
+        } else {
+            $program = null;
+        }
+
+        $programs = Program::all(); // Récupère tous les programmes
+        $universities = University::all();
+
+        return view('documents.create', compact('program', 'programs', 'universities'));
     }
+
+
 
     public function store(Request $request, Program $program)
     {

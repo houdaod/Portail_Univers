@@ -25,9 +25,12 @@ return new class extends Migration
             $table->string('file_path');
             $table->enum('type', ['public', 'subscription'])->default('public');
             $table->foreignId('university_id')->constrained()->onDelete('cascade');
+            $table->foreignId('program_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
+
         });
     }
+
 
     
 
